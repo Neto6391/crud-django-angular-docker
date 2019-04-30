@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   
-  baseurl = "localhost:8000/api"
-  httpHeaders = new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  baseurl = "http://localhost:8000/api"
+  httpHeaders = new HttpHeaders({'Content-type': 'application/json'} )
 
   constructor(private http: HttpClient) {}
 

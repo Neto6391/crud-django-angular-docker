@@ -16,11 +16,11 @@ export class AppComponent {
 
   getMovies = (api) => {
     api.getAllMovies().subscribe(
-      data => {
-        this.movies = data;
+      res => {
+        this.movies = res;
       },
       error => {
-        console.log(error);
+        console.log(error.message);
       }
     )
   }

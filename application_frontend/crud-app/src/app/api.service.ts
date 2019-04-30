@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,17 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   
-  baseurl = "http://localhost:8000/api"
-  httpHeaders = new HttpHeaders({'Content-type': 'application/json'} )
-
+  baseurl = environment.apiUrl
+  httpHeaders = new HttpHeaders({"Content-type": "application/json"} )
+  
   constructor(private http: HttpClient) {}
 
   getAllMovies(): Observable<any> {
     return this.http.get(this.baseurl + "/movies/", {headers: this.httpHeaders});
+  }
+
+  getOneMovie(id): Observable<any> {
+    
+    return this.http.get(this.baseurl + `/movies/${id}`, {headers: this.httpHeaders});
   }
 }

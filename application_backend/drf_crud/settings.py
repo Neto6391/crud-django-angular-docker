@@ -29,6 +29,16 @@ ALLOWED_HOSTS = []
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
+    'http://localhost:8000'
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
 )
 
 # Application definition

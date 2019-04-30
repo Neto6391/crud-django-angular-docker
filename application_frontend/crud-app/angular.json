@@ -61,6 +61,7 @@
             "browserTarget": "crud-app:build",
             "port": 4200
             
+            
           },
           "configurations": {
             "production": {

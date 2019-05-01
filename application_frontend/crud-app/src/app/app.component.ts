@@ -9,15 +9,21 @@ import { ApiService } from './api.service';
 })
 export class AppComponent {
   movies = [];
+  selectedMovie;
+  id;
+  title;
+  desc;
+  year;
 
   constructor(private api:ApiService) {
     this.getMovies(this.api);
+    this.selectedMovie = {id: -1, title: '', desc: '', year: 0}
   }
 
   getMovies = (api) => {
     api.getAllMovies().subscribe(
       res => {
-        this.movies = res;
+        this.movies = res
       },
       error => {
         console.log(error.message);
@@ -26,10 +32,20 @@ export class AppComponent {
   }
 
   movieClicked = (movie) => {
-
     this.api.getOneMovie(movie.id).subscribe(
       res => {
-        console.log(res)
+        this.selectedMovie = res
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  updateMovie = () => {
+    this.api.updateMovie(this.selectedMovie).subscribe(
+      res => {
+        this.selectedMovie = res
       },
       error => {
         console.log(error.message);

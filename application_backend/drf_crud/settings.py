@@ -25,21 +25,17 @@ SECRET_KEY = 'i)zuj1oib36f$&&7w9nug(iz206i0ha*2%hj#akv8=musuc*@!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ORIGIN_ALLOW_ALL = False
+
 ALLOWED_HOSTS = []
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
-    'http://localhost:8000'
+    'localhost:8000'
+    
 )
 
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-)
+
 
 # Application definition
 

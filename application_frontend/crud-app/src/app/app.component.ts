@@ -64,6 +64,7 @@ export class AppComponent {
     this.api.deleteMovie(this.selectedMovie.id).subscribe(
       res => {
         this.getMovies();
+        this.clearFields();
       },
       error => {
         console.log(error.message);

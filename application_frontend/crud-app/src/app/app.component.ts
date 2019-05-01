@@ -10,18 +10,14 @@ import { ApiService } from './api.service';
 export class AppComponent {
   movies = [];
   selectedMovie;
-  id;
-  title;
-  desc;
-  year;
 
   constructor(private api:ApiService) {
-    this.getMovies(this.api);
+    this.getMovies();
     this.selectedMovie = {id: -1, title: '', desc: '', year: 0}
   }
 
-  getMovies = (api) => {
-    api.getAllMovies().subscribe(
+  getMovies = () => {
+    this.api.getAllMovies().subscribe(
       res => {
         this.movies = res
       },
@@ -45,11 +41,37 @@ export class AppComponent {
   updateMovie = () => {
     this.api.updateMovie(this.selectedMovie).subscribe(
       res => {
-        this.selectedMovie = res
+        this.getMovies();
       },
       error => {
         console.log(error.message);
       }
     )
+  }
+
+  createMovie = () => {
+    this.api.createMovie(this.selectedMovie).subscribe(
+      res => {
+        this.movies.push(res);
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  deleteMovie = () => {
+    this.api.deleteMovie(this.selectedMovie.id).subscribe(
+      res => {
+        this.getMovies();
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  clearFields = () => {
+    this.selectedMovie = {id: -1, title: '', desc: '', year: 0}
   }
 }

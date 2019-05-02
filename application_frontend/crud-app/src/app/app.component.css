@@ -1,0 +1,10 @@
+table {
+    max-width: 60%;
+    margin: auto;
+    padding: 0.5%;
+}
+
+button.space-bt {
+    margin-left: 20%;
+    margin-bottom: 0.3%;
+}

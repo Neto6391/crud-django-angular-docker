@@ -1,15 +1,171 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<h2>List Of Movies </h2>
-<ul >
-  <li *ngFor="let movie of movies">
-    <h2 (click)="movieClicked(movie)">{{movie.title}}</h2>
-  </li>
-</ul>
-<hr>
-Title <input type="text" [(ngModel)]="selectedMovie.title"><br>
-Desc <input type="text" [(ngModel)]="selectedMovie.desc"><br>
-Year <input type="text" [(ngModel)]="selectedMovie.year"><br>
-<button *ngIf="selectedMovie.id != -1" (click)="updateMovie()">PUT</button>
-<button *ngIf="selectedMovie.id == -1" (click)="createMovie()">POST</button>
-<button *ngIf="selectedMovie.id != -1" (click)="deleteMovie()">DELETE</button>
-<button (click)="clearFields()">Clear</button>
+<h2 class="text-center mt-4" >Lista de Filmes </h2>
+<button type="button" class="btn btn-primary space-bt" data-toggle="modal" data-target="#createModal">Adicionar um Filme</button>
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Título</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies">
+        <th scope="row">{{movie.id}}</th>
+        <td>{{movie.title}}</td>
+        <td>
+          <div class="container">
+            <div class="row">
+              <div class=""><button type="button" (click)="movieClicked(movie)" data-toggle="modal" data-target="#readModal" class="btn btn-success">Visualizar</button></div>
+              <div class="ml-2 mr-2"><button type="button" (click)="movieClicked(movie)"  data-toggle="modal" data-target="#updateModal" class="btn btn-warning">Editar</button></div>
+              <div class=""><button type="button" (click)="movieClicked(movie)" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger">Excluir</button></div>
+            </div>  
+         </div>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal Create  -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createModalLabel">Criar Um Filme</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Título</span>
+                </div>
+                <input type="text" [(ngModel)]="selectedMovie.title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+              <div class="input-group">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Descrição</span>
+                      </div>
+                      <textarea [(ngModel)]="selectedMovie.desc" class="form-control" aria-label="With textarea"></textarea>
+                  </div>
+              </div>
+              <div class="input-group mb-3 mt-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Ano</span>
+                  </div>
+                  <input type="text" [(ngModel)]="selectedMovie.year" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success" (click)="createMovie()" data-dismiss="modal">Gravar Dados</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Edit  -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Editar Um Filme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Título</span>
+              </div>
+              <input type="text" [(ngModel)]="selectedMovie.title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+          </div>
+
+            <div class="input-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Descrição</span>
+                    </div>
+                    <textarea [(ngModel)]="selectedMovie.desc" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Ano</span>
+                </div>
+                <input type="text" [(ngModel)]="selectedMovie.year" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="clearFields()" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-warning" (click)="updateMovie()" data-dismiss="modal">Editar Dados</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Read -->
+<div class="modal fade" id="readModal" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="readModalLabel">Visualar Filme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Título</span>
+              </div>
+              <input disabled type="text" [(ngModel)]="selectedMovie.title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+          </div>
+
+            <div class="input-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Descrição</span>
+                    </div>
+                    <textarea disabled [(ngModel)]="selectedMovie.desc" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Ano</span>
+                </div>
+                <input disabled type="text" [(ngModel)]="selectedMovie.year" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="clearFields()" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Deletar Um Filme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Deseja Deletar Esse Registro?</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-danger" (click)="deleteMovie()" data-dismiss="modal">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
